@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+</head>
+<body>
+<div>
+    <form name="login" method="post" action="/member/login" >
+        <fieldset>
+            <legend th:text="'회원 정보 입력'" />
+            <input type="text" name="userid" placeholder="아이디" />
+            <input type="text" name="psw" placeholder="비번" />
+        </fieldset>
+        <fieldset>
+            <legend th:text="'제출'" />
+            <input type="submit" th:value="'로그인'" />
+            <div>
+                <h2 th:if="${msg != null}" th:text="${msg}"/>
+            </div>
+        </fieldset>
+    </form>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+</div>
+</body>
+</html>

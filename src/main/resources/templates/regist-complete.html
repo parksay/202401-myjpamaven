@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>등록 완료</title>
+</head>
+<body>
+    <div th:if="${member != null}">
+        <h2> 회원 등록이 완료 되었습니다.</h2>
+        <ul>
+            <li th:text="${member.name}" />
+            <li th:text="${member.userid}" />
+            <li th:text="${member.psw}" />
+            <li th:text="${member.address.city}" />
+            <li th:text="${member.address.street}" />
+            <li th:text="${member.address.detail}" />
+        </ul>
+    </div>
+    <div th:if="${product != null}">
+        <h2> 상품 등록이 완료 되었습니다.</h2>
+        <ul>
+            <li th:text="${product.getClass().getSimpleName()}" />
+            <li th:text="${product.title}" />
+            <li th:text="${product.price}" />
+            <li th:text="${product.stock}" />
+            <li th:switch="${product.getClass().getSimpleName()}">
+                <span th:case="Book" th:text="${product.author}" />
+                <span th:case="Album" th:text="${product.artist}" />
+                <span th:case="Movie" th:text="${product.director}" />
+            </li>
+        </ul>
+    </div>
+    <div th:if="${orders != null}">
+        <h2> 주문 등록이 완료 되었습니다.</h2>
+        <ul>
+            <li th:text="${orders.name}" />
+            <li th:text="${orders.userid}" />
+            <li th:text="${orders.psw}" />
+            <li th:text="${orders.address.city}" />
+            <li th:text="${orders.address.street}" />
+            <li th:text="${orders.address.detail}" />
+        </ul>
+    </div>
+    <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+</body>
+</html>

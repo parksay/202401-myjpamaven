@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>회원 등록</title>
+</head>
+<script>
+    function onChangeHandler(ele, val, e) {
+        console.log(ele);
+        console.log(val);
+        console.log(e);
+        const count = document.querySelector("#count").value;
+        const price = document.querySelector('select#product').querySelector('option:checked').getAttribute('price');
+        const divTotal = document.querySelector("#total");
+        const total = count * price;
+        divTotal.innerHTML = total;
+    }
+
+</script>
+<body>
+    <div>
+        <form name="registForm" method="post" action="/member/regist" >
+            <fieldset>
+                <legend th:text="'주문 정보 입력'" />
+                <select id="product" name="product" onchange="onChangeHandler(this, this.value, event);">
+                    <option th:each="product, productStat : ${productList}" th:text="${product.title}" th:value="${product.seq}" th:price="${product.price}"/>
+                </select>
+                <div >
+                    <span th:text="'수량'" /><input type="number" name="count" id="count" onchange="onChangeHandler(this, this.value, event);" />
+                </div>
+                <div>
+                    <span th:text="'총액: '" /><span name="total" id="total" />
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend th:text="'제출'" />
+                <input type="submit" th:value="'둥록'" />
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+</body>
+</html>

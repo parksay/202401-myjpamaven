@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>상품 목록</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>순서</th>
+                <th>제목</th>
+                <th>가격</th>
+                <th>재고</th>
+                <th>도서-저자/음반-가수/영화-감독</th>
+            </tr>
+            <tr th:each="product, productStat: ${productList}">
+                <td th:text="${productStat.count}"></td>
+                <td th:text="${product.title}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.stock}"></td>
+                <td th:switch="${product.getClass().getSimpleName()}" >
+                    <span th:case="Book" th:text="${product.author}" />
+                    <span th:case="Album" th:text="${product.artist}" />
+                    <span th:case="Movie" th:text="${product.director}" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+</body>
+</html>

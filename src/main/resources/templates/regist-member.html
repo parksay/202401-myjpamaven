@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>회원 등록</title>
+</head>
+<body>
+    <div>
+        <form name="registForm" method="post" action="/member/regist" >
+            <fieldset>
+                <legend th:text="'회원 정보 입력'" />
+                <input type="text" name="userid" placeholder="아이디" />
+                <input type="text" name="name" placeholder="이름" />
+                <input type="text" name="psw" placeholder="비번" />
+                <input type="text" name="city" placeholder="주소-시" />
+                <input type="text" name="street" placeholder="주소-구" />
+                <input type="text" name="detail" placeholder="주소-상세" />
+            </fieldset>
+            <fieldset>
+                <legend th:text="'제출'" />
+                <input type="submit" th:value="'둥록'" />
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+</body>
+</html>

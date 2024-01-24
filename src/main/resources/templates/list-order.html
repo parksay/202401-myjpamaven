@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>주문 목록</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>순서</th>
+                <th>주문자</th>
+                <th>주문 상태</th>
+                <th>배송 상태</th>
+                <th>주문 상품</th>
+            </tr>
+            <tr th:each="order, orderStat: ${orderList}">
+                <td th:text="${orderStat.count}"></td>
+                <td th:text="${order.member.name}"></td>
+                <td th:text="${order.orderStatus}"></td>
+                <td th:text="${order.delivery.deliveryStatus}"></td>
+                <td th:text="${order.ordersProductList[0].product.title}"></td>
+            </tr>
+        </table>
+
+    </div>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+</body>
+</html>

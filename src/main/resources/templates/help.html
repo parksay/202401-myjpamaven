@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World JPA</title>
+    <style>
+        table {border:3px solid black;}
+        tr {border:2px solid black;}
+        th,td {border:1px solid black;}
+    </style>
+</head>
+<body>
+    <h1>Hello! This is my learning proj!</h1>
+    <div>
+        <ul>
+            <li><h2>Object</h2></li>
+            <li>${user.username} = <span th:text="${user.username}"></span></li>
+            <li>${user['username']} = <span th:text="${user['username']}"></span></li>
+            <li>${user.getUsername()} = <span th:text="${user.getUsername()}"></span></li>
+        </ul>
+
+        <ul>
+            <li><h2>List</h2></li>
+            <li>${users[0].username} = <span th:text="${users[0].username}"></span></li>
+            <li>${users[0]['username']} = <span th:text="${users[0]['username']}"></span></li>
+            <li>${users[0].getUsername()} = <span th:text="${users[0].getUsername()}"></span></li>
+        </ul>
+
+        <ul>
+            <li><h2>Map</h2></li>
+            <li>${userMap['userA'].username} = <span th:text="${userMap['userA'].username}"></span></li>
+            <li>${userMap['userA']['username']} = <span th:text="${userMap['userA']['username']}"></span></li>
+            <li>${userMap['userA'].getUsername()} = <span th:text="${userMap['userA'].getUsername()}"></span></li>
+        </ul>
+
+        <ul>
+            <li><h2>url 변수</h2></li>
+            <li>단순한 url</li>
+            <li>th:href="@{/hello}" //=> <a th:href="@{/hello}"></a>/hello</li>
+            <li>쿼리 파라미터</li>
+            <li>th:href="@{/hello(param1=${param1}, param2=${param2})}" //=> <a th:href="@{/hello(param1=${param1}, param2=${param2})}">/hello(param1=${param1}, param2=${param2})</a></li>
+            <li>경로 변수</li>
+            <li>th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}" //=> <a th:href="@{/hello/{param1}/{param2}(param1=${param1}, param2=${param2})}">//hello/{param1}/{param2}(param1=${param1}, param2=${param2})</a></li>
+            <li>경로 변수</li>
+            <li>th:href="@{/hello/param(param1=${param1}, param2=${param2})}" //=> <a th:href="@{/hello/param(param1=${param1}, param2=${param2})}">/hello/param(param1=${param1}, param2=${param2})</a></li>
+        </ul>
+
+        <ul>
+            <li><h2>유틸리티 객체</h2></li>
+            <li>#message : 메세지, 구체화 처리</li>
+            <li>#urls : URI 이스케이프 지원</li>
+            <li>dates : java.util.Calendar 서식 지원</li>
+            <li>#temporals : 자바8 날짜 서식 지원</li>
+            <li>#numbers : 숫자 서식 지원</li>
+            <li>#strings : 문자 관련 편의 기능 지원 </li>
+            <li>#objects : 객체 관련 기능 지원</li>
+            <li>#bools : boolean 관련 기능 제공</li>
+            <li>#arrays : 배열 관련 기능 제공</li>
+            <li>#list #sets #maps : 컬렉션 관련 기능 제공</li>
+            <li>#ids : 아이디 처리 관련 기능 제공</li>
+        </ul>
+
+        <ul>
+            <li><h2>리터럴 사용</h2></li>
+            <li>타임리프에서는 문자열을 항상 '(작은 따옴표)로 감싸야 한다</li>
+            <li><span th:text="'Hello World!'"></span></li>
+            <li>문자열에 공백이 들어갈 경우 주의해야 한다 </li>
+            <li><span th:text="'Hello ' + ${data}"></span></li>
+            <li><span th:text="|Hello ${data}|"></span></li>
+
+        </ul>
+
+        <ul>
+            <li><h2>연산자 및 조건식</h2></li>
+            <li>10 + 2 = <span th:text="10 + 2"></span></li>
+            <li>5 > 2 = <span th:text="5 &gt; 2"></span></li>
+            <li><span th:text="(10 % 2 == 0) ? '짝수' : '홀수' "></span></li>
+        </ul>
+
+        <ul>
+            <li><h2>html 요소 속성</h2></li>
+            <li>타임리프는 html 태그에 "th:~~" 를 붙이는 방식으로 속성을 지정한다. 만약 이미 다른 html 속성이 있다면 th 속성이 덮어쓴다. </li>
+            <li><input type="text" name="hello" th:name="world" value="이때 name 속성은 'world' 가 된다"/></li>
+            <li>th:attrappend="" 하면 속성 값 뒤에 새로운 값을 추가한다. (앞에 공백 넣어주기 주의) </li>
+            <li><input type="text" class="hello" th:attrappend="class=' world'" value="이러면 class='hello world'" /></li>
+            <li>th:attrprepend="" 하면 속성 값 앞에 새로운 값을 추가한다. (뒤에 공백 넣어주기 주의) </li>
+            <li><input type="text" class="hello" th:classappend="world " value="이러면 class='hello world'" /></li>
+            <li>th:classappend="" 하면 class 속성 값 뒤에 새로운 값을 추가한다. (공백 안 넣어줘도 됨) </li>
+            <li><input type="text" class="hello" th:attrprepend="class=' world'" value="이러면 class='world hello'" /></li>
+            <li>html 요소 중 체크박스에는 "checked" 속성이 있다. th:checked 속성에는 어떤 값이든 값이 있기만 하면 true 로 해석한다. th:checked="false" 라고 해도 무언가 값이 있으므로 true 가 된다</li>
+            <li>체크 된 상태<input type="checkbox" name="hello" th:checked="false"/></li>
+            <li>체크 안 된 상태<input type="checkbox" name="hello"/></li>
+        </ul>
+        <ul>
+            <li><h2>반복문 돌리기 th:each</h2></li>
+        </ul>
+        <div style="border:1px solid black; padding-left: 30px">
+            <div>
+                <ul>
+                    <li><h2>기본</h2></li>
+                </ul>
+            </div>
+            <table>
+                <tr th:each="user : ${users}">
+                    <th>user_name</th>
+                    <td th:text="${user.username}">username</td>
+                    <th>user_age</th>
+                    <td th:text="${user.userage}">0</td>
+                </tr>
+            </table>
+            <div>
+                <ul>
+                    <li th:text="'두 번째 변수를 지정하면 반복문과 관력된 메타데이터에 접근할 수 있음'">username</li>
+                    <li th:text="'두 번째 변수를 지정하지 않으면 이름을 자동으로 지정해서 만들어 줌'">username</li>
+                    <li th:text="'자동으로 만들어지는 이름은 첫 번째 변수명 + Stat'">username</li>
+                </ul>
+            </div>
+            <table>
+                <tr>
+                    <th>반복 번호 0부터 시작</th>
+                    <th>반복 번호 1부터 시작</th>
+                    <th>반복문의 전체 크기, 반복하는 전체 횟수 </th>
+                    <th>반복하는 차례가 홀수인지 여부 (return 타입은 boolean 타입)</th>
+                    <th>반복하는 차례가 짝수인지 여부 (return 타입은 boolean 타입)</th>
+                    <th>반복하는 중에 처음 반복인지 여부 (return 타입은 boolean 타입)</th>
+                    <th>반복하는 중에 마지막 반복인지 여부 (return 타입은 boolean 타입)</th>
+                    <th>반복하고 있는 현재 객체</th>
+                </tr>
+                <tr th:each="user, userStat : ${users}">
+                    <td th:text="${userStat.index}">0</td>
+                    <td th:text="${userStat.count}">0</td>
+                    <td th:text="${userStat.size}">0</td>
+                    <td th:text="${userStat.even}">0</td>
+                    <td th:text="${userStat.odd}">0</td>
+                    <td th:text="${userStat.first}">0</td>
+                    <td th:text="${userStat.last}">0</td>
+                    <td th:text="${userStat.current}">0</td>
+                </tr>
+            </table>
+            <table>
+                <tr th:each="user, userStat : ${users}">
+                    <th>반복 번호 0부터 시작</th>
+                    <td th:text="${userStat.index}">0</td>
+                    <th>반복 번호 1부터 시작</th>
+                    <td th:text="${userStat.count}">0</td>
+                    <th>반복문의 전체 크기, 반복하는 전체 횟수 </th>
+                    <td th:text="${userStat.size}">0</td>
+                    <th>반복하는 차례가 홀수인지 여부 (return 타입은 boolean 타입)</th>
+                    <td th:text="${userStat.even}">0</td>
+                    <th>반복하는 차례가 짝수인지 여부 (return 타입은 boolean 타입)</th>
+                    <td th:text="${userStat.odd}">0</td>
+                    <th>반복하는 중에 처음 반복인지 여부 (return 타입은 boolean 타입)</th>
+                    <td th:text="${userStat.first}">0</td>
+                    <th>반복하는 중에 마지막 반복인지 여부 (return 타입은 boolean 타입)</th>
+                    <td th:text="${userStat.last}">0</td>
+                    <th>반복하고 있는 현재 객체</th>
+                    <td th:text="${userStat.current}">0</td>
+                </tr>
+            </table>
+        </div>
+        <ul>
+            <li> 조건문 (th:if / th:unless / th:switch) </li>
+            <li>th:if 속성은 그 안에 주어진 조건이 참이면 해당 태그를 렌더링한다.</li>
+            <li><span th:text="'미성년자'" th:if="${user.userage lt 20}"></span></li>
+            <li>th:unless 속성은 그 안에 주어진 조건이 거짓이면 해당 태그를 렌더링한다.</li>
+            <li><span th:text="'미성년자'" th:unless="${user.userage ge 20}"></span></li>
+            <li>th:switch 속성은 조건을 만족하는 태그만 렌더링하고 만약 조건을 만족하는 태그가 없다면 디폴트를 렌더링한다..</li>
+            <li th:switch="${user.userage}">
+                <span th:case="10">10살</span>
+                <span th:case="20">20살</span>
+                <span th:case="*">기타</span>
+            </li>
+        </ul>
+    </div>
+    <div>출처: <a href="https://imgzon.tistory.com/143"> https://imgzon.tistory.com/143 </a></div>
+</body>
+</html>

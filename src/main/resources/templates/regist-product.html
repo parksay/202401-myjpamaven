@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>상품 등록</title>
+</head>
+<body>
+    <div>
+        <form name="regist-product" method="post" action="/product/regist" >
+            <fieldset>
+                <legend th:text="'상품 기본 정보 입력'" />
+                <input type="text" name="title" placeholder="제목" />
+                <input type="number" name="price" placeholder="가격" />
+                <input type="number" name="stock" placeholder="재고" />
+            </fieldset>
+            <fieldset>
+                <legend th:text="'상품 상세 정보 입력'" />
+                <input type="radio" name="type" value="book" th:text="'도서'" />
+                <input type="radio" name="type" value="album" th:text="'음반'" />
+                <input type="radio" name="type" value="movie" th:text="'영화'" />
+                <input type="text" name="author" placeholder="도서 작가" />
+                <input type="text" name="artist" placeholder="음반 가수" />
+                <input type="text" name="director" placeholder="영화 감독" />
+            </fieldset>
+            <fieldset>
+                <legend th:text="'제출'" />
+                <input type="submit" th:value="'둥록'" />
+            </fieldset>
+        </form>
+    </div>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+
+</body>
+</html>

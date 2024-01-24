@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>회원 목록</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>순서</th>
+                <th>이름</th>
+                <th>아이디</th>
+                <th>비번</th>
+                <th>주소-시</th>
+                <th>주소-구</th>
+                <th>주소-상세</th>
+            </tr>
+            <tr th:each="member, memberStat: ${memberList}">
+                <td th:text="${memberStat.count}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.userid}"></td>
+                <td th:text="${member.psw}"></td>
+                <td th:text="${member.address.city}"></td>
+                <td th:text="${member.address.street}"></td>
+                <td th:text="${member.address.detail}"></td>
+            </tr>
+        </table>
+
+    </div>
+    <div>
+        <h2><a th:href="'/'" th:text="'처음으로 돌아가기'" /></h2>
+    </div>
+</body>
+</html>
