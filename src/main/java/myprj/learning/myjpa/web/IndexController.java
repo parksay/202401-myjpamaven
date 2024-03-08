@@ -19,4 +19,14 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "message")
+    public String messageController() {
+        return "message";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "answer")
+    public String answerController() {
+        return "answer";
+    }
+
 }

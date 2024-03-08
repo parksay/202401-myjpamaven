@@ -10,6 +10,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.TransactionManager;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -88,6 +89,15 @@ public class AppConfig {
         // 그래도 읽어오도록 하고 싶다면 지정하기는 가능.
         //
         return emf;
+    }
+
+
+
+    // 이미지 등록
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")           // 해당 경로의 요청이 올 때
+                .addResourceLocations("classpath:/static/") // classpath 기준으로 'm' 디렉토리 밑에서 제공
+                .setCachePeriod(20);                   // 캐싱 지정
     }
 
 }
